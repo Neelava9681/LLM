@@ -9,25 +9,27 @@ app.post('/mock-llm', (req, res) => {
 
     console.log(`Received prompt: ${prompt}`);
 
-    // Always return valid JSON string as content
-    const mockContent = JSON.stringify({
+    // Create a mock response with the JSON content as a string
+    const mockSchema = {
         object: {
-            fullName: "Mock_Object__c",
-            label: "Mock Object",
-            pluralLabel: "Mock Objects"
+            fullName: "Project__c",
+            label: "Project",
+            pluralLabel: "Projects"
         },
         fields: [
-            { fullName: "Field1__c", label: "Field 1", type: "Text" },
-            { fullName: "Field2__c", label: "Field 2", type: "Number" }
+            { fullName: "Project_Name__c", label: "Project Name", type: "Text" },
+            { fullName: "Start_Date__c", label: "Start Date", type: "Date" },
+            { fullName: "Budget__c", label: "Budget", type: "Number" },
+            { fullName: "Description__c", label: "Description", type: "LongTextArea" }
         ]
-    });
+    };
 
     const mockResponse = {
         choices: [
             {
                 message: {
                     role: "assistant",
-                    content: mockContent
+                    content: JSON.stringify(mockSchema) // Stringify the JSON
                 }
             }
         ]
